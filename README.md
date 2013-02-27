@@ -15,10 +15,9 @@ For more info on esprima visit: http://esprima.org/doc/index.html#ast
 There are two ways you can use JSizzle against a JScript source file.
 
 1. Provide the source file as input argument
-
-Example:
+	
 	node .\jsizzle .\sample_source_file.js
-		
+			
 The above lists complexity of all functions defined in sample_source_file.js in Big-O notation, to console.
 
 
