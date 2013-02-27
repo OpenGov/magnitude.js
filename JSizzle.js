@@ -9,7 +9,6 @@ var	fs = require('fs'),
 	Ouput: returns its complexity, in case of array returns the highest complexity amongst the
 */
 function getcomplexity_(JSON_code){
-
 	var complexity,
 		maxcomplexity,
 		i;
@@ -117,8 +116,6 @@ function getcomplexity_(JSON_code){
 	Assumptions: func_name is not defined inside an IF/Else, switch statement, while or For loops
 */
 function getfuncJSONblock_(func_name, JSON_code){   
-	
-	//console.log( JSON.stringify(JSON_code, null, 4) );	
 	var i = 0;
 	if(JSON_code == null){
 		return null;
@@ -177,7 +174,6 @@ function getfuncJSONblock_(func_name, JSON_code){
     Output: Outputs the complexity of func-name defined in JSON_code
 */
 function managecomplexity_(func_name){
-
     // Extract func_name JSON-code-block from the code 
     var JSON_func_object = getfuncJSONblock_(func_name,JSON_input_file);
 	if(JSON_func_object == null){
@@ -192,6 +188,9 @@ function managecomplexity_(func_name){
     printresult_(func_name,func_complexity);
 }
 
+/*
+	Prints results to console in a right alligned format 
+*/
 function printresult_(func_name,func_complexity){
 	var i = 0,
 		initlength;
@@ -208,16 +207,13 @@ function printresult_(func_name,func_complexity){
 	}else{
 		console.log("Function " + func_name + " is " + "O(1)");
 	}
-
 }
 
 function main_(){
-
-	
-	if(process.argv.length < 2){
-		console.log("Error: Provide an JScript source file as input.");
+	if(process.argv.length < 3){
+		console.log("Error: Please provide an JScript source file as input.");
+		return;
 	}
-
 	var input_file = process.argv[2];
 	var input_file_string = fs.readFileSync(input_file,'ascii');
 	
