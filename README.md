@@ -18,14 +18,14 @@ There are two ways you can use JSizzle against a JScript source file.
 
 1. Provide the source file as input argument:
 		
-		node .\jsizzle .\sample_source_file.js
+	node .\jsizzle .\sample_source_file.js
 				
 The above lists complexity of all functions defined in sample_source_file.js in Big-O notation, to console.
 
 
 2. Provide the source file and a specific function defined in source file as input arguments:
 		
-		node .\jsizzle .\sample_source_file.js sample-function-name
+	node .\jsizzle .\sample_source_file.js sample-function-name
 		
 The above outputs complexity of sample-function-name to console. 
 Note 'sample-function-name' is assumed to be defined inside 'sample_source_file.js'
