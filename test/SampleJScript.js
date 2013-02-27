@@ -126,10 +126,9 @@ function IfElsefunction(){
   		x="Good day";
   	}else{
   		x="Good evening";
-  	}
-  	
+  	}  	
   	if(time<10){
-  		x="very nice";
+  		x="Good Morning";
   	}
 }
 
