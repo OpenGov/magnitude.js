@@ -56,7 +56,7 @@ We'll have:
 	>> Function    'sample_function_1' is O(n^3)
 	>> Function    'sample_function_2' is O(n^2)
 
-	node .\JSizzle .\sample_script sample_function_2
+	node .\JSizzle .\sample_source_file sample_function_2
 	>> Function    'sample_function_2' is O(n^2)
 
 ###Assumptions about input program:
