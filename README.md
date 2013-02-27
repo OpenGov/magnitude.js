@@ -2,38 +2,30 @@
 
 Javascript Lint, Analyze, and Evaluate tool
 
-##Usage:
+###Usage:
 JSizzle runs on node.js
 
-##Required Libraries
+###Required Libraries
 JSizzle uses a parsing package called Esprima. Install Esprima using npm:
-npm install esprima
-
+	npm install esprima
 For more info on esprima visit: http://esprima.org/doc/index.html#ast
 
-##How to Run JSizzle:
+###How to Run JSizzle
 
 There are two ways you can use JSizzle against a JScript source file.
 
-###1. Provide the source file as input argument
-
-####Example: 
-node .\jsizzle .\sample_source_file.js
-
+1. Provide the source file as input argument
+	node .\jsizzle .\sample_source_file.js
 The above lists complexity of all functions defined in sample_source_file.js in Big-O notation, to console.
 
 
-###2. Provide the source file and a specific function defined in source file as input arguments
-
-####Example: 
-node .\jsizzle .\sample_source_file.js sample-function-name
-
+2. Provide the source file and a specific function defined in source file as input arguments
+	node .\jsizzle .\sample_source_file.js sample-function-name
 The above outputs complexity of sample-function-name to console. 
-
 Note 'sample-function-name' is assumed to be defined inside 'sample_source_file.js'
 
 
-#####For example:
+####Example:
 
 If sample_source_file.js contians:
 
