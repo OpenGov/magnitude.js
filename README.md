@@ -54,7 +54,7 @@ We'll have:
 
 	node .\JSizzle .\sample_source_file.js
 	>> (1) Functions called in sample script:
-	>> sample_function --> is O(3)
+	>> sample_function is O(3)
 
 	.\JSizzle .\sample_script .\sample_function_2
 	>> sample_function_2 is O(2)
