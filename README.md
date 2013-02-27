@@ -7,21 +7,23 @@ JSizzle runs on node.js
 
 ###Required Libraries
 JSizzle uses a parsing package called Esprima. Install Esprima using npm: 
+	
 	npm install esprima
+		
 For more info on esprima visit: http://esprima.org/doc/index.html#ast
 
 ###How to Run JSizzle
 
 There are two ways you can use JSizzle against a JScript source file.
 
-* Provide the source file as input argument
+* Provide the source file as input argument:
 	
 	node .\jsizzle .\sample_source_file.js
 				
 The above lists complexity of all functions defined in sample_source_file.js in Big-O notation, to console.
 
 
-* Provide the source file and a specific function defined in source file as input arguments
+* Provide the source file and a specific function defined in source file as input arguments:
 
 	node .\jsizzle .\sample_source_file.js sample-function-name
 
@@ -59,5 +61,5 @@ We'll have:
 
 ###Assumptions about input program:
 1. There is no loop in function calling.
-2. Built_in and required() functions take O(1).
+2. Built-in and imported functions are O(1).
 3. In function calls inputs take O(1) to be computed.
