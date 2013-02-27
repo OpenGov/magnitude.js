@@ -15,12 +15,12 @@ For more info on esprima visit: http://esprima.org/doc/index.html#ast
 There are two ways you can use JSizzle against a JScript source file.
 
 1. Provide the source file as input argument
-	node .\jsizzle .\sample_source_file.js
+		node .\jsizzle .\sample_source_file.js
 The above lists complexity of all functions defined in sample_source_file.js in Big-O notation, to console.
 
 
 2. Provide the source file and a specific function defined in source file as input arguments
-	node .\jsizzle .\sample_source_file.js sample-function-name
+		node .\jsizzle .\sample_source_file.js sample-function-name
 The above outputs complexity of sample-function-name to console. 
 Note 'sample-function-name' is assumed to be defined inside 'sample_source_file.js'
 
@@ -47,11 +47,11 @@ If sample_source_file.js contians:
 We'll have:
 
 	node .\jsizzle .\sample_source_file.js
-(1) Functions called in sample script:
+	>>(1) Functions called in sample script:
 sample_function --> is O(3)
 
 	.\jsizzle .\sample_script .\sample_function_2
-sample_function_2 is O(2)
+	>>sample_function_2 is O(2)
 
 ###Assumptions about input program:
 1. There is no loop in function calling.
