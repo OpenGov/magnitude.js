@@ -1,4 +1,31 @@
-﻿//Complexity O(n^9)
+﻿var fs = require('fs'),
+	esprima = require('esprima'),
+	JSON_code_object,
+	obj = require('sampleCode')	
+var x = 1,
+	y = 2,
+	w = 3
+if (x>y){
+    var w = 1;
+}
+else{
+    var w = 0;
+    var w = 0;
+    if (x>y){
+        var w = 1;
+    }
+    function testfunction12(x,y){
+    	return x+y
+	}
+	console.log(testfunction12(100,200))
+}
+var temp1 = 1;
+var temp2 = 2; 
+for (temp1 = 1; temp1<10; temp1++){ 
+    console.log(temp1);
+} 
+
+//Complexity O(n^9)
 function loopfunction0(x,y){
 	loopfunction2(1,2);
 	whilefunction(x,y);
@@ -67,34 +94,6 @@ function whilefunction(x,y){
   	}
 } 
 
-
-var fs = require('fs'),
-	esprima = require('esprima'),
-	JSON_code_object,
-	obj = require('sampleCode')	
-var x = 1,
-	y = 2,
-	w = 3
-if (x>y){
-    var w = 1;
-}
-else{
-    var w = 0;
-    var w = 0;
-    if (x>y){
-        var w = 1;
-    }
-    function testfunction12(x,y){
-    	return x+y
-	}
-	console.log(testfunction12(100,200))
-}
-var temp1 = 1;
-var temp2 = 2; 
-for (temp1 = 1; temp1<10; temp1++){ 
-    console.log(temp1);
-} 
- 
 //Complexity O(n^8) 
 function switchfunction(){
 	switch (day){
@@ -121,7 +120,7 @@ function ForInfunction(){
   	}
 }
 
-//Complexity O(n^0)
+//Complexity O(1)
 function IfElsefunction(){
 	if (time<20){
   		x="Good day";
@@ -138,7 +137,7 @@ for(temp1=1;temp1<10;temp1++){
     testfunction(temp1,1);
 }
 
-//Complexity O(n^0)
+//Complexity O(1)
 function sample(){
 	testfunction(2,3)
 	esprima.parse(input_file_string);
