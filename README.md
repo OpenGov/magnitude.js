@@ -53,11 +53,11 @@ If sample_source_file.js contians:
 We'll have:
 
 	node .\JSizzle .\sample_source_file.js
-	>> (1) Functions called in sample script:
-	>> sample_function is O(3)
+	>> Function    'sample_function_1' is O(n^3)
+	>> Function    'sample_function_2' is O(n^2)
 
 	.\JSizzle .\sample_script .\sample_function_2
-	>> sample_function_2 is O(2)
+	>> Function    'sample_function_2' is O(n^2)
 
 ###Assumptions about input program:
 1. There is no loop in function calling.
