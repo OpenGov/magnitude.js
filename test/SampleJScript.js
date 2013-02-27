@@ -146,3 +146,18 @@ function sample(){
 	obj.read(input_file)
 	array.sort(testfunction)
 }
+
+// Running JSizzle against SampleJscript
+/* 
+   node .\JSizzle.js .\test\SampleJScript.js
+>> Function    'loopfunction0' is O(n^9)
+>> Function    'loopfunction1' is O(n^8)
+>> Function             'test' is O(1)
+>> Function    'loopfunction2' is O(n^7)
+>> Function    'loopfunction3' is O(n^4)
+>> Function    'whilefunction' is O(n^8)
+>> Function   'switchfunction' is O(n^8)
+>> Function    'ForInfunction' is O(n^9)
+>> Function   'IfElsefunction' is O(1)
+>> Function           'sample' is O(1)
+*/
