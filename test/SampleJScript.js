@@ -147,7 +147,7 @@ function sample(){
 	array.sort(testfunction)
 }
 
-// Running JSizzle against SampleJscript
+// Running JSizzle against SampleJscript:
 /* 
    node .\JSizzle.js .\test\SampleJScript.js
 >> Function    'loopfunction0' is O(n^9)
