@@ -1,4 +1,6 @@
-﻿var fs = require('fs'),
+﻿// Note SampelJScript.js might not run, it's primary used as a source code input to JSizzle
+
+var fs = require('fs'),
 	esprima = require('esprima'),
 	JSON_code_object,
 	obj = require('sampleCode')	
