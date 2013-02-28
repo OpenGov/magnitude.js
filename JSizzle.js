@@ -196,8 +196,8 @@ function printresult_(func_name,func_complexity){
 		initlength;
 	func_name = '\''+func_name+'\'';
 	initlength = func_name.length;
-	if(initlength < 18){
-		for(i=0;i<18-initlength;i++){
+	if(initlength < 23){
+		for(i=0;i<23-initlength;i++){
 			func_name = " " + func_name;
 		}
 	}
@@ -238,7 +238,7 @@ function main_(){
 				console.log( "Error: Format of file \""+input_file+"\" is unrecognized." );	
 			}
 		}else{
-				console.log( "Error: Format of file \""+input_file+"\" is unrecognized." );			
+				console.log( "Error: Format of file \""+input_file+"\" is unrecognized." );	
 		}
 	}	
 }
