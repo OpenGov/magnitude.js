@@ -150,7 +150,7 @@ function nestedcall(){
 	whilefunction.inside1function()
 }
 
-function anonymous_handler(input,anon_func){ // Cannot figure out the complexity here
+function anonymous_handler(input,anon_func){ // Cannot figure out the complexity here suggestion ???
 	anon_fun(input);
 }
 
@@ -158,7 +158,7 @@ function call_anonymous_handler(){
 	anonymous_handler(2,function(input){input = input + 1;})
 }
 
-// What is the most complex nested code you'ce encountered in Delphi transparency?
+// What is the most complex nested code you'ce encountered in Delphi transparency ???
 
 anonymous_handler(2,function(input){input = input + 1;}) 
 
