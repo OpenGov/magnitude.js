@@ -1,5 +1,4 @@
 ﻿// Note SampelJScript.js might not run, it's primary used as a source code input to JSizzle
-
 var fs = require('fs'),
 	esprima = require('esprima'),
 	JSON_code_object,
@@ -140,12 +139,28 @@ for(temp1=1;temp1<10;temp1++){
 
 //Complexity O(1)
 function sample(){
-	testfunction(2,3)
+	testfunction(2,3);
 	esprima.parse(input_file_string);
 	fs.readFileSync(input_file);
-	obj.read(input_file)
-	array.sort(testfunction)
+	obj.read(input_file);
+	array.sort(testfunction);
 }
+
+function nestedcall(){
+	whilefunction.inside1function()
+}
+
+function anonymous_handler(input,anon_func){ // Cannot figure out the complexity here
+	anon_fun(input);
+}
+
+function call_anonymous_handler(){
+	anonymous_handler(2,function(input){input = input + 1;})
+}
+
+// What is the most complex nested code you'ce encountered in Delphi transparency?
+
+anonymous_handler(2,function(input){input = input + 1;}) 
 
 // Running JSizzle against SampleJscript:
 /* 

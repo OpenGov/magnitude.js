@@ -2,7 +2,8 @@ var	fs = require('fs'),
 	esprima = require('esprima'),
 	csv = require('csv'),
 	JSON_input_file,
-	input_file;
+	input_file = 'test/SampleJScript.js' , 
+	func_name = 'call_anonymous_handler';	
 
 /*
 	Input: a JSON code object or an array of JSON code objects 
@@ -174,56 +175,62 @@ function getfuncJSONblock_(func_name, JSON_code){
     Output: Outputs the complexity of func-name defined in JSON_code
 */
 function managecomplexity_(func_name){
-    // Extract func_name JSON-code-block from the code 
-    var JSON_func_object = getfuncJSONblock_(func_name,JSON_input_file);
+	// Extract func_name JSON-code-block from the code 
+	var JSON_func_object = getfuncJSONblock_(func_name,JSON_input_file);
+	
+	console.log(JSON.stringify(JSON_func_object,null,4));
+	
 	if(JSON_func_object == null){
 		console.log("Error: Function \'" + func_name + "\' is not defined in \'" + input_file +"\'")
 		return
 	}
 
-    // Find the complexity of the func_name from its JSON format     
-    var func_complexity = getcomplexity_(JSON_func_object)	
+	// Find the complexity of the func_name from its JSON format     
+	var func_complexity = getcomplexity_(JSON_func_object)	
     
-    // Return the result as O(getcomplexity_(relative_input))
-    printresult_(func_name,func_complexity);
+	// Return the result as O(getcomplexity_(relative_input))
+	printresult_(func_name,func_complexity);
 }
 
 /*
 	Prints results to console in a right alligned format 
 */
 function printresult_(func_name,func_complexity){
-	var i = 0,
+	var collumnsize = 23,
+		i = 0,
 		initlength;
 	func_name = '\''+func_name+'\'';
 	initlength = func_name.length;
-	if(initlength < 23){
-		for(i=0;i<23-initlength;i++){
+	if(initlength < collumnsize){
+		for(i=0;i<collumnsize-initlength;i++){
 			func_name = " " + func_name;
 		}
 	}
     
-    if (func_complexity!=0){
-    	console.log("Function " + func_name + " is " + "O(n^"+func_complexity+")");
+	if (func_complexity!=0){
+		console.log("Function " + func_name + " is " + "O(n^"+func_complexity+")");
 	}else{
 		console.log("Function " + func_name + " is " + "O(1)");
 	}
 }
 
 function main_(){
-	if(process.argv.length < 3){
+	
+	/*if(process.argv.length < 3){
 		console.log("Error: Please provide an JScript source file as input.");
 		return;
-	}
-	var input_file = process.argv[2];
+	}*/
+	
+	//var input_file = process.argv[2];
 	var input_file_string = fs.readFileSync(input_file,'ascii');
 	
-    // Using esprima parse the input_file file into a JSON code object 
-    JSON_input_file = esprima.parse(input_file_string);
+	// Using esprima parse the input_file file into a JSON code object 
+	JSON_input_file = esprima.parse(input_file_string);
 	  	  	
-    //Check whether a specific function is specified as second arguemt
-	if ( process.argv.length > 3) {	//If a specific function is specified calculate its compexity	
-		var func_name = process.argv[3] 
-    	managecomplexity_(func_name)
+	//Check whether a specific function is specified as second arguemt
+	if (func_name!='' /*process.argv.length > 3*/) {	//If a specific function is specified calculate its compexity	
+		//var func_name = process.argv[3] 
+		managecomplexity_(func_name)
 	}else {
 		var i = 0;
 		if(JSON_input_file.hasOwnProperty('type')){
