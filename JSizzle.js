@@ -1,10 +1,10 @@
 var	fs = require('fs'),
 	esprima = require('esprima'),
 	JSON_input_file,
-	input_file = 'test/SampleJScript.js' , 
+	input_file = '',
 	func_name = '',
-	dive = '';	
-	
+	dive = '';
+		
 /*
 	Input: a JSON code object or an array of JSON code objects 
 	Ouput: returns its complexity, in case of array returns the highest complexity amongst the
@@ -24,7 +24,7 @@ function getcomplexity_(JSON_code){
 		return getcomplexity_(JSON_code.body);
 	}
 	
-		// In case JSON_code is a block of code 
+	// In case JSON_code is a block of code 
 	if(JSON_code.type == 'BlockStatement'){
 		return getcomplexity_(JSON_code.body);
 	}	
@@ -59,11 +59,22 @@ function getcomplexity_(JSON_code){
 		return getcomplexity_(JSON_code.body);
 	}
 	
-	                    
-	// In case JSON_code is an assignement calcualte the right statement
+	// In case JSON_code is a variable declarations
+	if(JSON_code.type == 'VariableDeclaration'){
+		if(JSON_code.hasOwnProperty('declarations')){
+			return getcomplexity_(JSON_code.declarations);
+		}
+	}
+	
+	// In case JSON_code is a variable declarator
+	if(JSON_code.type == 'VariableDeclarator'){
+		return getcomplexity_(JSON_code.init);
+	}
+	  
+		// In case JSON_code is an assignement calcualte the right statement
 	if(JSON_code.type == 'ExpressionStatement'){
 		if(JSON_code.hasOwnProperty('expression')){
-			if(JSON_code.expression.type == 'AssignmentExpression'){		
+			if(JSON_code.expression.type == 'AssignmentExpression'){
 				return getcomplexity_(JSON_code.expression.right);
 			}
 		}
@@ -96,15 +107,29 @@ function getcomplexity_(JSON_code){
 	if(JSON_code instanceof Array){
 		maxcomplexity = 0;		
 		for(i=0;i<JSON_code.length;i++){			
-			//console.log("array["+i+"] : "+JSON.stringify(JSON_code[i] , null, 4));
 			complexity = getcomplexity_(JSON_code[i]); 
 			if(complexity > maxcomplexity){
 				maxcomplexity = complexity;
 			}
 		}
 		return maxcomplexity;
+	}  
+	       
+	// In case JSON_code is a function call
+	if(JSON_code.type == 'CallExpression'){
+		if(JSON_code.hasOwnProperty('callee')){
+			if(JSON_code.callee.type == 'Identifier'){
+				var calleename = JSON_code.callee.name;
+				var inputcomplexities = getcomplexity_(JSON_code.arguments);
+				var funcbodycomplexities = getcomplexity_(getfuncJSONblock_(calleename,JSON_input_file));
+				return funcbodycomplexities + inputcomplexities ;
+			}
+			if(JSON_code.callee.type == 'FunctionExpression'){
+				return getcomplexity_(JSON_code.callee.body);
+			}
+		}
 	}
-	
+			           
 	// In case JSON_code is a function call 
 	if(JSON_code.type == 'ExpressionStatement'){			
 		if(JSON_code.hasOwnProperty('expression')){
@@ -112,7 +137,9 @@ function getcomplexity_(JSON_code){
 				if(JSON_code.expression.hasOwnProperty('callee')){
 					if(JSON_code.expression.callee.type == 'Identifier'){
 						var calleename = JSON_code.expression.callee.name;
-						return getcomplexity_(getfuncJSONblock_(calleename,JSON_input_file));
+						var inputcomplexities = getcomplexity_(JSON_code.expression.arguments);
+						var funcbodycomplexities = getcomplexity_(getfuncJSONblock_(calleename,JSON_input_file));
+						return funcbodycomplexities + inputcomplexities ;
 					}
 					if(JSON_code.expression.callee.type == 'FunctionExpression'){
 						return getcomplexity_(JSON_code.expression.callee.body);
@@ -151,11 +178,22 @@ function getfuncJSONblock_(func_name, JSON_code){
 		}
 	}
 	
+	// In case JSON_code is a variable declaration
+	if(JSON_code.type == 'VariableDeclaration'){
+		if(JSON_code.hasOwnProperty('declarations')){
+			return getfuncJSONblock_(func_name,JSON_code.declarations);
+		}
+	}	
+	
+	// In case JSON_code is a variable declarator
+	if(JSON_code.type == 'VariableDeclarator'){
+		return getfuncJSONblock_(func_name,JSON_code.init);
+	}
+	
 	// In case JSON_code is an assignement search for the right statement  ??????????? Not working now
 	if(JSON_code.type == 'ExpressionStatement'){
 		if(JSON_code.hasOwnProperty('expression')){
-			if(JSON_code.expression.type == 'AssignmentExpression'){
-				//console.log(JSON_code.expression);		
+			if(JSON_code.expression.type == 'AssignmentExpression'){	
 				return getfuncJSONblock_(func_name,JSON_code.expression.right);
 			}
 		}
@@ -196,7 +234,6 @@ function getfuncJSONblock_(func_name, JSON_code){
 		}
 	}
 		
-
 	// In case JSON_code is an anonymous function declaration function call 
 	if(JSON_code.type == 'ExpressionStatement'){			
 		if(JSON_code.hasOwnProperty('expression')){
@@ -220,7 +257,6 @@ function getfuncJSONblock_(func_name, JSON_code){
 function managecomplexity_(func_name){
 	// Extract func_name JSON-code-block from the code 
 	var JSON_func_object = getfuncJSONblock_(func_name,JSON_input_file);
-	//console.log(JSON.stringify(JSON_func_object,null,4));	
 	if(JSON_func_object == null){
 		console.log("Error: Function \'" + func_name + "\' is not defined in \'" + input_file +"\'")
 		return
@@ -237,7 +273,7 @@ function managecomplexity_(func_name){
 	Prints results to console in a right alligned format 
 */
 function printresult_(func_name,func_complexity){
-	var collumnsize = 25,
+	var collumnsize = 28,
 		i = 0,
 		initlength;
 	func_name = '\''+func_name+'\'';
@@ -247,22 +283,38 @@ function printresult_(func_name,func_complexity){
 			func_name = " " + func_name;
 		}
 	}
-    
-	if (func_complexity!=0){
-		console.log("Function " + func_name + " is " + "O(n^"+func_complexity+")");
-	}else{
+	
+	if (func_complexity==0){
 		console.log("Function " + func_name + " is " + "O(1)");
+		return;
 	}
+	
+	if (func_complexity==1){
+		console.log("Function " + func_name + " is " + "O(n)");
+		return;
+	}
+	
+	console.log("Function " + func_name + " is " + "O(n^"+func_complexity+")");
+
+	return;
 }
 
 // Calculate complexity of all the functions defined in the program
 function one_argument_call_(){
-	var i = 0;
+
+	var i = 0;	
 	if (JSON_input_file.type == 'Program'){
 		var body = JSON_input_file.body;
 		for(i=0;i<body.length;i++){
 			if (body[i].type == 'FunctionDeclaration'){
 				managecomplexity_(body[i].id.name)
+			}else{
+				if(body[i].type == 'ExpressionStatement'){
+					printresult_('_CallExpression_',getcomplexity_(body[i]))
+				}else{
+					// Format not recognized at this point
+					//console.log('Format Not Recognized');
+				}
 			}			
 		}
 	}else{
@@ -272,24 +324,28 @@ function one_argument_call_(){
 
 //If a specific function is specified calculate its compexity	
 function two_argument_call_(func_name){
-	// var func_name = process.argv[3];
+	func_name = process.argv[3];
 	managecomplexity_(func_name);
 }
 
 function three_argument_call_(){
-	//var func_name = process.argv[3];
-	//var dive = process.argv[4];
+	func_name = process.argv[3];
+	dive = process.argv[4];
 	if(dive == 'dive' || dive == 'Dive'){
-		//console.log('1');
 		var func_object = getfuncJSONblock_(func_name,JSON_input_file);
-		//console.log(func_object);
 		if (func_object.hasOwnProperty('body')){
 			var body = func_object.body.body;
 			for(i=0;i<body.length;i++){
-				//console.log('2');			
 				if (body[i].type == 'FunctionDeclaration'){
 					managecomplexity_(body[i].id.name)
-				}			
+				}else{
+					if(body[i].type == 'ExpressionStatement'){
+						printresult_('_CallExpression_',getcomplexity_(body[i]))
+					}else{
+						// Format not recognized at this point
+						//console.log('Format Not Recognized');
+					}
+				}				
 			}
 		}
 	}else{
@@ -298,33 +354,50 @@ function three_argument_call_(){
 	}
 }
 
-function main_(){	
-	/*if(process.argv.length < 3){
-		console.log("Error: Please provide an JScript source file as input.");
-		return;
-	}*/	
-	//var input_file = process.argv[2];
-	var input_file_string = fs.readFileSync(input_file,'ascii');
-	
-	// Using esprima parse the input_file file into a JSON code object 
-	JSON_input_file = esprima.parse(input_file_string);
-	  	  		
-	// If not function name is passed as input
-	if(func_name == ''   /*process.argv.length == 3*/){
-		one_argument_call_();
-		return;
-	}
+function main_(){
 
-	//If only a specific function is specified as second arguemt	
-	if(dive != 'dive' /*process.argv.length == 4*/){
-		two_argument_call_(func_name);
-		return;
-	}
+	// If JSizzle is run with command line
+	if (input_file=='' ){
+		if(process.argv.length < 3){
+			console.log("Error: Please provide an JScript source file as input.");
+			return;
+		}	
+		input_file = process.argv[2];
+		
+		var input_file_string = fs.readFileSync(input_file,'ascii');
+		
+		// Using esprima parse the input_file file into a JSON code object 
+		JSON_input_file = esprima.parse(input_file_string);
 	
-	if(dive == 'dive' /*process.argv.length == 5*/){
-		//console.log('dive');
-		three_argument_call_();
-		return;
+		// If not function name is passed as input
+		if(process.argv.length == 3){
+			one_argument_call_();
+			return;
+		}
+
+		//If only a specific function is specified as second arguemt	
+		if(process.argv.length == 4){
+			two_argument_call_(func_name);
+			return;
+		}
+	
+		if(process.argv.length == 5){
+			three_argument_call_();
+			return;
+		}
+		
+	}else{ // If JSizzle is run by a script		
+		var input_file_string = fs.readFileSync(input_file,'ascii');
+		// Using esprima parse the input_file file into a JSON code object 
+		JSON_input_file = esprima.parse(input_file_string);
+		one_argument_call_();
 	}
 }
+
 main_();
+exports.run = function(inputfile){
+	input_file = inputfile;
+	func_name = '',
+	dive = '';
+	main_();
+}
