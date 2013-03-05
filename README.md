@@ -101,3 +101,6 @@ We'll have:
 'RunJSizzle.js' runs JSizzle against all *.js files. You can use it like below:
 
 	node .\RunJSizzle sample-directory-name  
+	
+#### Authors
+Arash Enayati(aenayati@delphi.us) with significant input from Michael Rosengarten and Krishna Rajendran
