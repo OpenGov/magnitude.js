@@ -37,7 +37,7 @@ Note 'sample-function-name' is assumed to be defined inside 'sample_source_file.
 The above dives into 'sample-function-name', defined anywhere in 'sample_source_file', and returns complexities of functions defined inside it.
 
 ###Features
-JSizzle takes into account the following features of JS codes including many others:
+JSizzle takes into account the following features of JS codes, along with many others.
 
 * Anonymous function calls
 * Anonymous function declarations as call backs
