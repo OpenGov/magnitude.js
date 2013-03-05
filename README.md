@@ -63,17 +63,24 @@ JSizzle takes into account the following features of JS codes, along with many o
 			}	
 		}
 	}
+	(function(k){
+		func_name = function(){
+			sample_function_1(k);
+		}
+	}(2));
 
 We'll have:
+
 	node .\JSizzle .\sample_source_file.js
 	>> Function    'sample_function_1' is O(n^3)
 	>> Function    'sample_function_2' is O(n^2)
+	>> Function     '_CallExpression_' is O(n^3)
 
 	node .\JSizzle .\sample_source_file sample_function_2
 	>> Function    'sample_function_2' is O(n^2)
 	
-#### Running JSizzle Against All *.js files in a directory
+#### Running JSizzle Against All *.js Files in a Directory
 
-RunJSizzle runs JSizzle against all *.js files. You can use it like below:
+'RunJSizzle.js' runs JSizzle against all *.js files. You can use it like below:
 
 	node .\RunJSizzle sample-directory-name  
