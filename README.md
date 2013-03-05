@@ -38,7 +38,6 @@ The above dives into 'sample-function-name', defined anywhere in 'sample_source_
 
 ###Features
 JSizzle takes into account the following features of JS codes, along with many others.
-
 * Anonymous function calls
 * Anonymous function declarations as call backs
 * Assignment of functions to variables
@@ -51,11 +50,11 @@ JSizzle takes into account the following features of JS codes, along with many o
 
 	If sample_source_file.js contains:
 	var i=0,j=0,k=0,l=0;
-	sample_function_1(i){s
+	sample_function_1(i){
 		for(j=0;j<i;j++){
 			sample_function_2(j)
 		}
-		sample_nested_function_1(i){s
+		sample_nested_function_1(i){
 			for(j=0;j<i;j++){
 				while (i>0){
 					console.log('hello world.')
@@ -63,7 +62,7 @@ JSizzle takes into account the following features of JS codes, along with many o
 				}	
 			}
 		}
-		sample_nested_function_2(i){s
+		sample_nested_function_2(i){
 			while (i>0){
 				console.log('hello world.')
 				i--;
