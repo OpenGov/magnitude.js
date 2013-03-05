@@ -55,6 +55,20 @@ JSizzle takes into account the following features of JS codes, along with many o
 		for(j=0;j<i;j++){
 			sample_function_2(j)
 		}
+		sample_nested_function_1(i){s
+			for(j=0;j<i;j++){
+				while (i>0){
+					console.log('hello world.')
+					i--;
+				}	
+			}
+		}
+		sample_nested_function_2(i){s
+			while (i>0){
+				console.log('hello world.')
+				i--;
+			}	
+		}
 	}
 	sample_function_2(k){
 		for(j=0;j<k;j++){
@@ -78,6 +92,10 @@ We'll have:
 
 	node .\JSizzle .\sample_source_file sample_function_2
 	>> Function    'sample_function_2' is O(n^2)
+	
+	node .\JSizzle .\sample_source_file sample_function_1 dive
+	>> Function    'sample_nested_function_1' is O(n^2)
+	>> Function    'sample_nested_function_2' is O(n)
 	
 #### Running JSizzle Against All *.js Files in a Directory
 
