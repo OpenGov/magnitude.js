@@ -28,8 +28,7 @@ if(process.argv.length > 2){
 	dir = process.argv[2];
 }
 
+
 walk(dir, function(filename){
 	validate(filename, status);
 });
-
-
