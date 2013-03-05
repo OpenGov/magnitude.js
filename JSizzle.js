@@ -394,7 +394,7 @@ function main_(){
 	}
 }
 
-main_();
+//main_();
 exports.run = function(inputfile){
 	input_file = inputfile;
 	func_name = '',
