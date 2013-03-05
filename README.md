@@ -46,9 +46,10 @@ JSizzle takes into account the following features of JS codes including many oth
 * Functions calls passed as inputs to functions
 * Function names passed as inputs to functions
 
+
 ####Example:
 
-If sample_source_file.js contains:
+	If sample_source_file.js contains:
 	var i=0,j=0,k=0,l=0;
 	sample_function_1(i){s
 		for(j=0;j<i;j++){
@@ -73,6 +74,6 @@ We'll have:
 	
 #### Running JSizzle Against All *.js files in a directory
 
-RunJSizzle runs JSizzle against all *.js files. You can use it like following:
+RunJSizzle runs JSizzle against all *.js files. You can use it like below:
 
 	node .\RunJSizzle sample-directory-name  
