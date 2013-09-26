@@ -1,4 +1,4 @@
-#JSizzle
+#JSizzle (deprecated)
 
 Javascript Lint, Analyze, and Evaluate tool
 
